@@ -343,6 +343,16 @@ class TextToSpeechApp:
                     # 运行异步函数
                     asyncio.run(save_audio())
                     
+                    # 获取选择的音频设备
+                    device_name = self.audio_device_var.get()
+                    
+                    # 重新初始化pygame mixer以使用选定的设备
+                    pygame.mixer.quit()
+                    if device_name != "默认设备":
+                        pygame.mixer.init(devicename=device_name)
+                    else:
+                        pygame.mixer.init()
+                    
                     # 使用pygame播放生成的音频文件
                     pygame.mixer.music.load(temp_file)
                     pygame.mixer.music.play()
@@ -369,6 +379,17 @@ class TextToSpeechApp:
     
     def convert_to_speech(self):
         """将文本转换为语音"""
+        # 清理临时mp3文件
+        try:
+            for file in os.listdir():
+                if file.startswith("temp_edge_tts_") and file.endswith(".mp3"):
+                    try:
+                        os.remove(file)
+                    except Exception as e:
+                        print(f"清理临时文件失败: {e}")
+        except Exception as e:
+            print(f"扫描临时文件失败: {e}")
+        
         text = self.text_input.get("1.0", tk.END).strip()
         if not text:
             self.status_var.set("请输入要转换的文本")

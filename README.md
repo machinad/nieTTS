@@ -5,10 +5,11 @@
 ## 功能特点
 
 - 文本输入界面，支持多行文本
-- 支持多种TTS服务商（系统内置TTS、Microsoft SAPI5）
+- 支持多种TTS服务商（系统内置TTS、Microsoft SAPI5、Edge TTS）
 - 自动扫描并列出系统上的音频输出设备
 - 可选择不同的语音进行播放
 - 保存用户配置，下次启动时自动加载
+- 支持Edge TTS引擎，提供更自然的语音合成
 
 ## 安装说明
 
@@ -39,6 +40,19 @@ python text_to_speech.py
 - Windows 7/8/10/11
 - Python 3.6+
 - 至少一个可用的音频输出设备
+
+## 依赖安装
+
+安装所需依赖：
+```
+pip install -r requirements.txt
+```
+
+requirements.txt包含：
+- pygame
+- pywin32
+- comtypes
+- edge-tts
 
 ## 故障排除
 
