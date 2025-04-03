@@ -325,17 +325,26 @@ class TextToSpeechApp:
         """使用Edge TTS引擎"""
         try:
             def speak():
+                temp_file = None
                 try:
+                    # 生成唯一的临时文件名
+                    import uuid
+                    temp_file = f"temp_edge_tts_{uuid.uuid4().hex}.mp3"
+                    
+                    # 如果临时文件已存在，先删除
+                    if os.path.exists(temp_file):
+                        os.remove(temp_file)
+                    
                     communicate = edge_tts.Communicate(text, voice_name)
                     # 创建异步函数来保存音频
                     async def save_audio():
-                        await communicate.save("temp_edge_tts.mp3")
+                        await communicate.save(temp_file)
                     
                     # 运行异步函数
                     asyncio.run(save_audio())
                     
                     # 使用pygame播放生成的音频文件
-                    pygame.mixer.music.load("temp_edge_tts.mp3")
+                    pygame.mixer.music.load(temp_file)
                     pygame.mixer.music.play()
                     
                     # 等待播放完成
@@ -347,10 +356,12 @@ class TextToSpeechApp:
                     self.status_var.set(f"Edge TTS语音播放失败: {e}")
                 finally:
                     # 删除临时文件
-                    try:
-                        os.remove("temp_edge_tts.mp3")
-                    except:
-                        pass
+                    if temp_file and os.path.exists(temp_file):
+                        try:
+                            pygame.mixer.music.unload()
+                            os.remove(temp_file)
+                        except Exception as e:
+                            print(f"删除临时文件失败: {e}")
             
             threading.Thread(target=speak).start()
         except Exception as e:
