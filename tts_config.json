@@ -1,0 +1,5 @@
+{
+    "tts_provider": "Edge TTS",
+    "voice": "zh-CN-YunjianNeural",
+    "audio_device": "耳机 (High Definition Audio Device)"
+}
