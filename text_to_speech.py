@@ -108,12 +108,22 @@ class TextToSpeechApp:
         refresh_btn = ttk.Button(control_frame, text="刷新设备", command=self.refresh_devices)
         refresh_btn.grid(row=1, column=4, padx=5, pady=5)
         
+        # 创建日志框区域
+        log_frame = ttk.LabelFrame(main_frame, text="转换历史", padding="10")
+        log_frame.pack(fill=tk.BOTH, expand=True, pady=5)
+        
+        self.log_text = scrolledtext.ScrolledText(log_frame, wrap=tk.WORD, width=40, height=10, state='disabled')
+        self.log_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
         # 创建文本输入区域
         text_frame = ttk.LabelFrame(main_frame, text="文本输入", padding="10")
-        text_frame.pack(fill=tk.BOTH, expand=True, pady=5)
+        text_frame.pack(fill=tk.X, pady=5)
         
-        self.text_input = scrolledtext.ScrolledText(text_frame, wrap=tk.WORD, width=40, height=10)
-        self.text_input.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.text_input = ttk.Entry(text_frame, width=50)
+        self.text_input.pack(fill=tk.X, expand=True, padx=5, pady=5)
+        
+        # 绑定回车键事件
+        self.text_input.bind('<Return>', lambda e: self.convert_to_speech())
         
         # 创建按钮区域
         button_frame = ttk.Frame(main_frame)
@@ -390,10 +400,19 @@ class TextToSpeechApp:
         except Exception as e:
             print(f"扫描临时文件失败: {e}")
         
-        text = self.text_input.get("1.0", tk.END).strip()
+        text = self.text_input.get().strip()
         if not text:
             self.status_var.set("请输入要转换的文本")
             return
+        
+        # 将文本添加到日志框
+        self.log_text.config(state='normal')
+        self.log_text.insert(tk.END, text + "\n")
+        self.log_text.see(tk.END)
+        self.log_text.config(state='disabled')
+        
+        # 清空文本输入框
+        self.text_input.delete(0, tk.END)
         
         provider = self.tts_provider_var.get()
         voice_name = self.voice_var.get()
