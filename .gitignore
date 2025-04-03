@@ -1,0 +1,23 @@
+# Python缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 临时文件
+temp_edge_tts.mp3
+
+# IDE和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 测试缓存
+.pytest_cache/
+
+# 本地配置文件
+tts_config.json
