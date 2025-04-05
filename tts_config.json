@@ -1,5 +1,5 @@
 {
     "tts_provider": "Edge TTS",
     "voice": "zh-CN-XiaoyiNeural",
-    "audio_device": "默认设备"
+    "audio_device": "耳机 (High Definition Audio Device)"
 }

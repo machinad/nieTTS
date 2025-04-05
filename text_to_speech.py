@@ -3,6 +3,7 @@ import os
 import json
 import threading
 import asyncio
+from pythonosc import udp_client
 
 # 添加错误处理以便更好地诊断问题
 try:
@@ -41,6 +42,13 @@ class TextToSpeechApp:
         # 初始化状态变量
         self.status_var = tk.StringVar()
         self.status_var.set("正在初始化...")
+        
+        # 初始化VRChat OSC客户端
+        try:
+            self.osc_client = udp_client.SimpleUDPClient("127.0.0.1", 9000)
+            print("VRChat OSC客户端初始化成功")
+        except Exception as e:
+            print(f"VRChat OSC客户端初始化失败: {e}")
         
         # 初始化pygame用于音频播放
         try:
@@ -410,6 +418,13 @@ class TextToSpeechApp:
         self.log_text.insert(tk.END, text + "\n")
         self.log_text.see(tk.END)
         self.log_text.config(state='disabled')
+        
+        # 发送文本到VRChat OSC
+        try:
+            self.osc_client.send_message("/chatbox/input", [text, True])
+            print(f"已发送文本到VRChat: {text}")
+        except Exception as e:
+            print(f"发送文本到VRChat失败: {e}")
         
         # 清空文本输入框
         self.text_input.delete(0, tk.END)
