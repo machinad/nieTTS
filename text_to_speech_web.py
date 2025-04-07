@@ -62,11 +62,19 @@ class TTSApp:
     
     def get_voice_list(self):
         """获取当前TTS服务商支持的语音列表"""
-        voices = ["zh-CN-XiaoxiaoNeural", "zh-CN-YunxiNeural", "zh-CN-YunjianNeural", 
-                 "zh-CN-YunyangNeural", "zh-CN-XiaochenNeural", "zh-CN-XiaohanNeural", 
-                 "zh-CN-XiaomengNeural", "zh-CN-XiaomoNeural", "zh-CN-XiaoqiuNeural", 
-                 "zh-CN-XiaoruiNeural", "zh-CN-XiaoshuangNeural", "zh-CN-XiaoxuanNeural", 
-                 "zh-CN-XiaoyanNeural", "zh-CN-XiaoyouNeural", "zh-CN-XiaozhenNeural"]
+        voices = [
+            # 女声
+            "zh-CN-XiaoxiaoNeural",  # Female, News/Novel, Warm
+            "zh-CN-XiaoyiNeural",    # Female, Cartoon/Novel, Lively
+            "zh-CN-liaoning-XiaobeiNeural",  # Female, Dialect, Humorous
+            "zh-CN-shaanxi-XiaoniNeural",   # Female, Dialect, Bright
+            
+            # 男声
+            "zh-CN-YunjianNeural",   # Male, Sports/Novel, Passion
+            "zh-CN-YunxiNeural",     # Male, Novel, Lively/Sunshine
+            "zh-CN-YunxiaNeural",    # Male, Cartoon/Novel, Cute
+            "zh-CN-YunyangNeural"    # Male, News, Professional/Reliable
+        ]
         return voices
     
     def set_audio_device(self, device):

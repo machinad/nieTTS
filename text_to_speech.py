@@ -162,7 +162,16 @@ class TextToSpeechApp:
         if provider == "Edge TTS":
             try:
                 # 获取Edge TTS可用的语音列表
-                voices = ["zh-CN-XiaoxiaoNeural", "zh-CN-YunxiNeural", "zh-CN-YunjianNeural", "zh-CN-XiaoyiNeural", "zh-CN-YunyangNeural", "zh-CN-XiaochenNeural", "zh-CN-XiaohanNeural", "zh-CN-XiaomengNeural", "zh-CN-XiaomoNeural", "zh-CN-XiaoqiuNeural", "zh-CN-XiaoruiNeural", "zh-CN-XiaoshuangNeural", "zh-CN-XiaoxuanNeural", "zh-CN-XiaoyanNeural", "zh-CN-XiaoyouNeural", "zh-CN-XiaozhenNeural"]
+                voices = [
+                    "zh-CN-XiaoxiaoNeural",  # 女声, 新闻/小说, 温暖
+                    "zh-CN-XiaoyiNeural",    # 女声, 卡通/小说, 活泼
+                    "zh-CN-liaoning-XiaobeiNeural",  # 女声, 方言, 幽默
+                    "zh-CN-shaanxi-XiaoniNeural",   # 女声, 方言, 明亮
+                    "zh-CN-YunjianNeural",   # 男声, 体育/小说, 激情
+                    "zh-CN-YunxiNeural",     # 男声, 小说, 活泼/阳光
+                    "zh-CN-YunxiaNeural",    # 男声, 卡通/小说, 可爱
+                    "zh-CN-YunyangNeural"    # 男声, 新闻, 专业/可靠
+                ]
             except Exception as e:
                 print(f"获取Edge TTS语音失败: {e}")
                 voices = ["无法获取Edge TTS语音"]
