@@ -3,3 +3,4 @@ pywin32
 comtypes
 edge-tts
 python-osc
+flask
