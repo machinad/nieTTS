@@ -18,7 +18,7 @@ echo 步骤2: 检查并安装依赖项
 echo 正在检查依赖项更新...
 pip list --format=freeze > installed_packages.txt
 findstr /V "^-e" requirements.txt > temp_req.txt
-pip install -r requirements.txt --upgrade
+pip install -r requirements.txt --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
 del installed_packages.txt temp_req.txt
 
 echo.
