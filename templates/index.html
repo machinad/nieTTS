@@ -161,6 +161,24 @@
                 margin-bottom: 1.5rem;
             }
         }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            color: #fd7194;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -219,6 +237,10 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <p><a href="https://github.com/machinad/nieTTS/tree/web%E5%AE%9E%E7%8E%B0" target="_blank">nieTTS</a>由<a href="https://github.com/machinad" target="_blank">machinad</a>构建 | <a href="https://github.com/machinad/nieTTS/tree/web%E5%AE%9E%E7%8E%B0" target="_blank">GitHub</a>源代码遵循 <a href="https://opensource.org/licenses/MIT" target="_blank">MIT 协议</a></p>
+    </footer>
 
     <script>
         function convertToSpeech() {
