@@ -1,49 +1,76 @@
-# 文字转语音程序运行说明
+# 文字转语音程序使用指南
 
-本程序提供了两种运行方式，并支持Edge TTS和VRChat OSC功能：
+这是一个基于Python的文字转语音(TTS)程序，支持Web界面和传统窗口两种运行模式。程序可将文本转换为自然流畅的语音，并支持将文本同步发送到VRChat聊天框。
 
-## 1. 使用run_tts.bat（推荐）
+## 快速安装
 
-双击`run_tts.bat`文件即可启动程序。这种方式使用pythonw.exe运行程序，不会显示控制台窗口，使程序看起来更像一个原生Windows应用程序。
+1. 下载程序后，双击运行`install.bat`
+2. 安装程序会自动：
+   - 检查并安装Python环境（如未安装）
+   - 安装所需的依赖包
+   - 在桌面创建两种模式的快捷方式
 
-## 2. 使用run_tts_universal.bat（通用版）
+## 运行方式
 
-如果您在不同的电脑上运行本程序，或者Python安装路径不同，请使用`run_tts_universal.bat`。这个批处理文件会自动查找pythonw.exe的路径，更具有通用性。
+### Web模式（推荐）
 
-## 3. 直接运行（不推荐）
+1. 双击桌面上的「文字转语音(Web模式)」快捷方式
+2. 程序会自动打开默认浏览器并显示Web界面
+3. 在文本输入框中输入要转换的文字，按回车键即可转换
 
-您也可以通过命令行运行以下命令启动程序：
-```
-python text_to_speech.py
-```
-但这种方式会显示一个控制台窗口，影响用户体验。
+### 传统窗口模式
 
-## 程序功能说明
+1. 双击桌面上的「文字转语音（窗口）」快捷方式
+2. 在弹出的窗口中使用程序
 
-1. Edge TTS功能
-   - 提供高质量的语音合成服务
-   - 支持多种中文语音选择
-   - 语音更自然流畅
+## VB-CABLE配置（用于麦克风输出）
 
-2. VRChat OSC功能
-   - 自动将输入的文本发送到VRChat聊天框
-   - 实现文字与语音的同步显示
+### 安装步骤
 
-3. 界面功能
-   - 单行文本输入框，按回车键快速转换
-   - 历史记录框显示已转换的文本
-   - 可选择不同的音频输出设备
+1. 访问[VB-CABLE官网](https://vb-audio.com/Cable/)下载VB-CABLE驱动
+2. 解压下载的文件
+3. 以管理员身份运行`VBCABLE_Setup_x64.exe`（64位系统）或`VBCABLE_Setup.exe`（32位系统）
+4. 完成安装后重启电脑
 
-## pythonw与python的区别
+### 配置方法
 
-- `python.exe`：运行Python脚本时会显示控制台窗口，适合需要命令行交互的程序
-- `pythonw.exe`：运行Python脚本时不会显示控制台窗口，适合GUI程序
+1. 在Windows系统托盘中右键点击音量图标，选择「打开声音设置」
+2. 在「输出」设备列表中，选择「CABLE Input」作为默认音频输出设备
+3. 在本程序的音频设备选择下拉框中，同样选择「CABLE Input」
+4. 在需要使用麦克风的应用程序中，将输入设备设置为「CABLE Output」
 
-对于本文字转语音程序这类带有图形界面的应用，使用pythonw.exe运行可以获得更好的用户体验。
+## 故障排除
 
-## 注意事项
+- 如果无法检测到音频设备，请点击「刷新设备」按钮
+- 如果使用Microsoft SAPI5时出现问题，请确保Windows系统中已安装相应的语音包
+- 如果播放时没有声音，请检查系统音量和选择的音频设备是否正确
+- 如果VRChat OSC功能无法使用，请确保VRChat已启动并允许OSC连接
+- 如果运行时出现问题，可以尝试重新运行`install.bat`修复环境
 
-1. 如果程序运行时出现错误，但因为使用pythonw而看不到错误信息，可以尝试使用python.exe运行程序以查看错误信息
-2. 确保已安装程序所需的所有依赖包（可通过`pip install -r requirements.txt`安装）
-3. 如果批处理文件无法正常运行，请检查您的Python安装路径是否与批处理文件中的路径一致
-4. VRChat OSC功能需要VRChat处于运行状态才能正常使用
+### VB-CABLE故障排除
+
+- 确保已正确安装VB-CABLE驱动
+- 检查Windows声音设置中的默认设备配置
+- 确认目标应用程序已选择「CABLE Output」作为输入设备
+- 检查音量混合器中VB-CABLE的音量级别
+
+## 手动安装方法
+
+如果自动安装失败，请按以下步骤操作：
+
+1. 安装Python（3.8或更新版本）：
+   - 访问 https://www.python.org/downloads/windows/
+   - 下载64位Windows安装程序
+   - 安装时勾选"Add Python to PATH"
+
+2. 安装依赖包：
+   - 打开命令提示符（Win+R，输入cmd）
+   - 切换到程序目录
+   - 运行：pip install -r requirements.txt
+   - 如遇网络问题，可使用：
+     pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+
+## 卸载程序
+
+1. 运行`uninstall.bat`删除桌面快捷方式
+2. 直接删除程序文件夹即可

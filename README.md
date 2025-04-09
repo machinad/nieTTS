@@ -1,9 +1,10 @@
 # 文字转语音程序
 
-这是一个基于Python的文字转语音(TTS)程序，可在Windows系统上运行。程序允许用户输入文本，选择TTS服务商和语音，并将文本转换为语音通过选定的音频输出设备播放。同时支持将文本同步发送到VRChat聊天框。
+这是一个基于Python的文字转语音(TTS)程序，可在Windows系统上运行。程序提供Web界面和传统窗口两种运行模式，支持多种TTS服务商，可将文本转换为自然流畅的语音。同时支持将文本同步发送到VRChat聊天框。
 
 ## 功能特点
 
+- 提供Web界面和传统窗口两种运行模式
 - 单行文本输入界面，支持按回车键快速转换
 - 历史记录框显示已转换的文本
 - 支持多种TTS服务商（Microsoft SAPI5、Edge TTS）
@@ -13,50 +14,71 @@
 - 支持Edge TTS引擎，提供更自然的语音合成
 - 支持VRChat OSC功能，可将文本同步发送到聊天框
 
-## 安装说明
+## 快速安装
 
-1. 确保您的系统已安装Python 3.6或更高版本
-2. 安装所需依赖包：
+1. 下载程序后，双击运行`install.bat`
+2. 安装程序会自动：
+   - 检查并安装Python环境（如未安装）
+   - 安装所需的依赖包
+   - 在桌面创建两种模式的快捷方式
 
-```
-pip install -r requirements.txt
-```
+## 运行方式
 
-注意：tkinter通常随Python一起安装，如果缺少，请参考Python官方文档安装。
+### Web模式（推荐）
 
-## 使用方法
+1. 双击桌面上的「文字转语音(Web模式)」快捷方式
+2. 程序会自动打开默认浏览器并显示Web界面
+3. 在文本输入框中输入要转换的文字，按回车键即可转换
 
-1. 运行程序：
+### 传统窗口模式
 
-```
-python text_to_speech.py
-```
-
-2. 在文本输入框中输入要转换的文字，按回车键或点击「转换为语音」按钮
-3. 从下拉菜单中选择TTS服务商和语音
-4. 选择音频输出设备
-5. 文本会自动转换为语音，并同步发送到VRChat聊天框（需要VRChat处于运行状态）
+1. 双击桌面上的「文字转语音（窗口）」快捷方式
+2. 在弹出的窗口中使用程序
 
 ## 系统要求
 
 - Windows 7/8/10/11
-- Python 3.6+
+- 自动安装程序会检查并安装所需环境
 - 至少一个可用的音频输出设备
 - VRChat（如需使用OSC功能）
+- VB-CABLE（如需将音频输出到麦克风）
 
-## 依赖安装
+## VB-CABLE配置说明
 
-安装所需依赖：
-```
-pip install -r requirements.txt
-```
+### 安装VB-CABLE
 
-requirements.txt包含：
-- pygame
-- pywin32
-- comtypes
-- edge-tts
-- python-osc
+1. 访问[VB-CABLE官网](https://vb-audio.com/Cable/)下载VB-CABLE驱动
+2. 解压下载的文件
+3. 以管理员身份运行`VBCABLE_Setup_x64.exe`（64位系统）或`VBCABLE_Setup.exe`（32位系统）
+4. 完成安装后重启电脑
+
+### 配置步骤
+
+1. 在Windows系统托盘中右键点击音量图标，选择「打开声音设置」
+2. 在「输出」设备列表中，选择「CABLE Input」作为默认音频输出设备
+3. 在本程序的音频设备选择下拉框中，同样选择「CABLE Input」
+4. 在需要使用麦克风的应用程序（如语音聊天软件）中，将输入设备设置为「CABLE Output」
+
+### 使用说明
+
+- 当您在程序中播放文本时，声音会通过VB-CABLE虚拟设备输出
+- 其他应用程序将可以通过「CABLE Output」接收到程序的音频输出
+- 这样就实现了将TTS语音作为麦克风输入的功能
+
+### 音量调节
+
+1. 在Windows音量混合器中可以单独调节VB-CABLE的输入输出音量
+2. 建议先将音量设置在中等水平，然后根据实际效果微调
+3. 注意避免音量过大导致失真
+
+## 主要依赖
+
+程序会自动安装以下依赖：
+- pygame：音频播放
+- pywin32：Windows系统接口
+- comtypes：COM组件支持
+- edge-tts：Edge TTS引擎
+- python-osc：VRChat集成
 
 ## 故障排除
 
@@ -64,3 +86,65 @@ requirements.txt包含：
 - 如果使用Microsoft SAPI5时出现问题，请确保Windows系统中已安装相应的语音包
 - 如果播放时没有声音，请检查系统音量和选择的音频设备是否正确
 - 如果VRChat OSC功能无法使用，请确保VRChat已启动并允许OSC连接
+- 如果运行时出现问题，可以尝试重新运行`install.bat`修复环境
+- 如果使用VB-CABLE时没有声音：
+  - 确保已正确安装VB-CABLE驱动
+  - 检查Windows声音设置中的默认设备配置
+  - 确认目标应用程序已选择「CABLE Output」作为输入设备
+  - 检查音量混合器中VB-CABLE的音量级别
+
+## 手动安装指南
+
+如果自动安装过程中遇到问题，您可以按照以下步骤手动完成安装：
+
+### Python环境安装
+
+如果Python安装失败，请按以下步骤操作：
+
+1. 访问Python官网 https://www.python.org/downloads/windows/
+2. 点击下载Python 3.8或更新版本（选择"Windows installer (64-bit)"）
+3. 运行下载的安装程序：
+   - 勾选"Add Python to PATH"（重要！）
+   - 点击"Install Now"
+4. 检查安装是否成功：
+   - 按Win+R键，输入cmd并回车
+   - 在黑色窗口中输入：python --version
+   - 如果显示Python版本号，说明安装成功
+
+### 依赖包安装
+
+如果依赖包安装失败，请手动安装：
+
+1. 打开命令提示符（按Win+R，输入cmd并回车）
+2. 切换到程序目录：
+   - 输入：cd 程序所在的完整路径
+   - 例如：cd C:\Users\用户名\Desktop\nieTTS
+3. 安装依赖包：
+   - 输入：pip install -r requirements.txt
+   - 如果显示网络错误，可以尝试：
+     pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+
+### 快捷方式创建
+
+如果快捷方式创建失败，可以手动创建：
+
+1. Web模式快捷方式：
+   - 找到程序目录中的"web模式.bat"
+   - 右键点击，选择"发送到桌面快捷方式"
+   - 重命名为"文字转语音(Web模式)"
+
+2. 窗口模式快捷方式：
+   - 找到程序目录中的"run_tts.bat"
+   - 右键点击，选择"发送到桌面快捷方式"
+   - 重命名为"文字转语音（窗口）"
+
+如果以上步骤仍然无法解决问题，建议：
+- 暂时关闭电脑的杀毒软件
+- 使用管理员权限运行安装程序
+- 确保电脑已连接到互联网
+
+## 卸载
+
+如需卸载程序：
+1. 运行`uninstall.bat`删除桌面快捷方式
+2. 直接删除程序文件夹即可
