@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
     <title>nieTTS - 文字转语音</title>
     <style>
         :root {
@@ -99,6 +100,31 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        details {
+            background: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #e3e6f0;
+            margin-bottom: 1rem;
+        }
+
+        .settings-content {
+            padding: 0 1rem 1rem;
+        }
         
         #logArea {
             height: 200px;
@@ -131,52 +157,57 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">nieTTS - 文字转语音</h1>
+        <h1 class="mb-4">nieTTS</h1>
         
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">日志记录喵</div>
+                    <div class="card-body" id="logArea"></div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="textInput" class="form-label">输入文本</label>
-                    <textarea class="form-control" id="textInput" rows="3" placeholder="请输入要转换的文本"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="providerSelect" class="form-label">TTS服务商</label>
-                    <select class="form-select" id="providerSelect">
-                        {% for provider in tts_providers %}
-                        <option value="{{ provider }}">{{ provider }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="voiceSelect" class="form-label">语音选择</label>
-                    <select class="form-select" id="voiceSelect">
-                        {% for voice in voices %}
-                        <option value="{{ voice }}">{{ voice }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="deviceSelect" class="form-label">输出设备</label>
-                    <select class="form-select" id="deviceSelect">
-                        {% for device in audio_devices %}
-                        <option value="{{ device }}">{{ device }}</option>
-                        {% endfor %}
-                    </select>
+                    <input type="text" class="form-control" id="textInput" placeholder="请输入要转换的文本">
                 </div>
 
                 <button class="btn btn-primary mt-3" onclick="convertToSpeech()">
-    <i class="bi bi-soundwave me-2"></i>转换为语音
-</button>
-            </div>
+                    <i class="bi bi-soundwave me-2"></i>发送并提交osc
+                </button>
 
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">转换日志</div>
-                    <div class="card-body" id="logArea"></div>
-                </div>
+                <details class="mt-4">
+                    <summary>高级设置</summary>
+                    <div class="settings-content">
+                        <div class="form-group">
+                            <label for="providerSelect" class="form-label">TTS服务商</label>
+                            <select class="form-select" id="providerSelect">
+                                {% for provider in tts_providers %}
+                                <option value="{{ provider }}">{{ provider }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="voiceSelect" class="form-label">语音选择</label>
+                            <select class="form-select" id="voiceSelect">
+                                {% for voice in voices %}
+                                <option value="{{ voice }}">{{ voice }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deviceSelect" class="form-label">输出设备</label>
+                            <select class="form-select" id="deviceSelect">
+                                {% for device in audio_devices %}
+                                <option value="{{ device }}">{{ device }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </details>
             </div>
         </div>
     </div>
